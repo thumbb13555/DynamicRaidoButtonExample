@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         btDisplay.setOnClickListener((v) -> {
             setRadioAction(numberPicker);
+//            copy(numberPicker.getValue(),findViewById(R.id.linearLayout_Main));
 
         });
 
@@ -115,6 +116,34 @@ public class MainActivity extends AppCompatActivity {
             radioGroup.addView(radioButton, rlTable);
         }
         layoutMain.addView(radioGroup);
+        /*設置點擊事件*/
+        /*點擊並獲取標籤內容與"真正的"ID*/
+        radioGroup.setOnCheckedChangeListener(((group, checkedId) -> {
+            RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
+            String getLab = radioButton.getText().toString();
+            int getGroupId = group.indexOfChild(radioButton);
+            Toast.makeText(this, getLab + ", id=" + getGroupId, Toast.LENGTH_LONG).show();
+        }));
+    }
+    /**直接複製區域*/
+    private void copy(int amount,LinearLayout layout){
+        ArrayList<String> rgLabel = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            rgLabel.add("第" + (i + 1) + "項目");
+        }
+        /*根據標籤數量設置幾個RadioButton*/
+        RadioGroup radioGroup = new RadioGroup(this);
+        radioGroup.setOrientation(RadioGroup.VERTICAL);
+        layout.removeAllViewsInLayout();
+        RadioGroup.LayoutParams rlTable;
+        for (int i = 0; i < rgLabel.size(); i++) {
+            RadioButton radioButton = new RadioButton(this);
+            radioButton.setText(rgLabel.get(i));
+            rlTable = new RadioGroup.LayoutParams(RadioGroup.LayoutParams.MATCH_PARENT
+                    , RadioGroup.LayoutParams.MATCH_PARENT);
+            radioGroup.addView(radioButton, rlTable);
+        }
+        layout.addView(radioGroup);
         /*設置點擊事件*/
         /*點擊並獲取標籤內容與"真正的"ID*/
         radioGroup.setOnCheckedChangeListener(((group, checkedId) -> {
