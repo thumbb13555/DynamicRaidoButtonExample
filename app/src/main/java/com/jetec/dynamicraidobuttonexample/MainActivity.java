@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.AtomicFile;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         btDisplay.setOnClickListener((v) -> {
             setRadioAction(numberPicker);
-//            copy(numberPicker.getValue(),findViewById(R.id.linearLayout_Main));
+            copy(numberPicker.getValue(),findViewById(R.id.linearLayout_Main));
 
         });
 
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < rgAmount; i++) {
             rgLabel.add("第" + (i + 1) + "項目");
         }
-
+        Log.d(TAG, "setRadioAction: "+rgLabel);
         /*根據標籤數量設置幾個RadioButton*/
         LinearLayout layoutMain = findViewById(R.id.linearLayout_Main);
         RadioGroup radioGroup = new RadioGroup(this);
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             RadioButton radioButton = findViewById(group.getCheckedRadioButtonId());
             String getLab = radioButton.getText().toString();
             int getGroupId = group.indexOfChild(radioButton);
+
             Toast.makeText(this, getLab + ", id=" + getGroupId, Toast.LENGTH_LONG).show();
         }));
     }
